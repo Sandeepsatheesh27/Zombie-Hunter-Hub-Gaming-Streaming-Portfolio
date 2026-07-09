@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Hunter | Official Gaming Hub</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #121216;
+            --accent-orange: #ff5500;
+            --accent-green: #00ff66;
+            --text-main: #ffffff;
+            --text-muted: #8a8a93;
+            --card-border: #22222a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(18, 18, 22, 0.95);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            text-shadow: 0 0 10px rgba(255, 85, 0, 0.5);
+        }
+
+        .logo span {
+            color: var(--accent-orange);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-orange);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a100b 0%, var(--bg-primary) 70%);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #ff5500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-twitch {
+            background-color: #6441a5;
+            color: white;
+        }
+
+        .btn-twitch:hover {
+            background-color: #7d5bbe;
+            box-shadow: 0 0 15px rgba(100, 65, 165, 0.4);
+        }
+
+        .btn-discord {
+            background-color: #5865F2;
+            color: white;
+        }
+
+        .btn-discord:hover {
+            background-color: #6a75f3;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent-orange);
+            padding-left: 1rem;
+        }
+
+        /* Media Section */
+        .media-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+
+        .video-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .video-wrapper-shorts {
+            position: relative;
+            padding-bottom: 177.78%; /* 9:16 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 4px;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        .video-wrapper iframe, .video-wrapper-shorts iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Grid Platforms */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #33333f;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card .btn-link {
+            text-align: center;
+            padding: 0.6rem;
+            background-color: #1c1c24;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+            border: 1px solid #2a2a35;
+        }
+
+        .card .btn-link:hover {
+            background-color: var(--accent-orange);
+            border-color: var(--accent-orange);
+        }
+
+        /* Sara Section */
+        .sara-section {
+            background: linear-gradient(135deg, #121216 0%, #1a1510 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .sara-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        .sara-content h2 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .sara-content h2 span {
+            color: #ffaa00;
+        }
+
+        .sara-badge {
+            display: inline-block;
+            background-color: rgba(255, 170, 0, 0.1);
+            color: #ffaa00;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 170, 0, 0.2);
+        }
+
+        .sara-content p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .sara-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .sara-buttons {
+                justify-content: center;
+            }
+        }
+
+        .btn-sara-yt {
+            background-color: #ff0000;
+            color: white;
+        }
+        .btn-sara-yt:hover {
+            background-color: #cc0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-sara-ig {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+        .btn-sara-ig:hover {
+            box-shadow: 0 0 15px rgba(220, 39, 67, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--card-border);
+            padding: 4rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-contact {
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-contact p {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-email {
+            font-size: 1.3rem;
+            color: var(--accent-orange);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: #ff7733;
+        }
+
+        .copyright {
+            color: #555562;
+            font-size: 0.85rem;
+            border-top: 1px solid #1c1c24;
+            padding-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav>
+        <div class="logo">Zombie<span>Hunter</span></div>
+        <ul>
+            <li><a href="#streams">Watch</a></li>
+            <li><a href="#platforms">Profiles</a></li>
+            <li><a href="#community">Community</a></li>
+            <li><a href="#sara">Super Sara</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Showcase Section -->
+    <section class="hero">
+        <h1>Welcome to the Hunting Grounds</h1>
+        <p>Gamer, Streamer, and Content Creator. Dropping daily Valorant plays, tactical setups, and intense community showdowns.</p>
+        <div class="hero-buttons">
+            <a href="https://www.twitch.tv/zombieehunter" target="_blank" class="btn btn-twitch">Twitch Live</a>
+            <a href="https://discord.gg/6Vubvtsrf" target="_blank" class="btn btn-discord">Join Discord Server</a>
+        </div>
+    </section>
+
+    <!-- Main Web Content Container -->
+    <main class="container">
+
+        <!-- Embedded Media Highlights -->
+        <h2 class="section-title" id="streams">Latest Operations</h2>
+        <div class="media-grid">
+            <div class="video-card">
+                <h3>Main Event Showcase</h3>
+                <div class="video-wrapper">
+                    <!-- Embedded Horizontal Gameplay -->
+                    <iframe src="https://www.youtube.com/embed/pLa--goOyuo" title="Zombie Hunter Horizontal Video" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <h3>Tactical Short</h3>
+                <div class="video-wrapper-shorts">
+                    <!-- Embedded Vertical Short -->
+                    <iframe src="https://www.youtube.com/embed/7OuqaLuJm1A" title="Zombie Hunter Shorts Video" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accounts & Profiles Hub -->
+        <h2 class="section-title" id="platforms">Gamer Stations</h2>
+        <div class="grid-3">
+            <!-- YouTube Hub -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon" style="background-color: rgba(255,0,0,0.1); color: #ff0000;">YT</div>
+                        <h3>YouTube Gaming</h3>
+                    </div>
+                    <p>Primary strategic archives. Check out full match analysis videos, stream highlights, and long-form breakdowns.</p>
+                </div>
+                <a href="https://www.youtube.com/@zombiehunter-gaming" target="_blank" class="btn-link">Subscribe Channel</a>
+            </div>
+
+            <!-- Twitch Platform -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon" style="background-color: rgba(100,65,165,0.1); color: #6441a5;">TW</div>
+                        <h3>Twitch Stream</h3>
+                    </div>
+                    <p>Live target verification. Drop by to interact live in chat, see raw competitive play, and run custom lobbies.</p>
+                </div>
+                <a href="https://www.twitch.tv/zombieehunter" target="_blank" class="btn-link">Follow Live</a>
+            </div>
+
+            <!-- Steam Account Link -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon" style="background-color: rgba(255,255,255,0.05); color: #fff;">ST</div>
+                        <h3>Steam Profile</h3>
+                    </div>
+                    <p>Squad operations terminal. Track competitive tracking metrics, platform game records, and digital deployment history.</p>
+                </div>
+                <a href="https://steamcommunity.com/profiles/76561199194289191/" target="_blank" class="btn-link">View Steam Identity</a>
+            </div>
+        </div>
+
+        <!-- Squad Connection Communities -->
+        <h2 class="section-title" id="community">Community Comm-Links</h2>
+        <div class="grid-3">
+            <!-- Discord Outpost -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon" style="background-color: rgba(88,101,242,0.1); color: #5865F2;">DC</div>
+                        <h3>Discord Server</h3>
+                    </div>
+                    <p>Official Zombie Hunter HQ. Coordinate drops, interact with the server community directly, and grab custom tag assignments.</p>
+                </div>
+                <a href="https://discord.gg/6Vubvtsrf" target="_blank" class="btn-link">Secure Server Access</a>
+            </div>
+
+            <!-- WhatsApp Link -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon" style="background-color: rgba(0,230,118,0.1); color: #00e676;">WA</div>
+                        <h3>WhatsApp Hub</h3>
+                    </div>
+                    <p>Instant broadcast system. Receive immediate operational notifications, urgent scheduling notices, and community pings.</p>
+                </div>
+                <a href="https://chat.whatsapp.com/CJTVGOBPItRDgr36wyuklC" target="_blank" class="btn-link">Enter Group Channel</a>
+            </div>
+
+            <!-- Instagram Grid -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon" style="background-color: rgba(225,48,108,0.1); color: #e1306c;">IG</div>
+                        <h3>Gaming Instagram</h3>
+                    </div>
+                    <p>Behind-the-scenes layout drops. Check setup aesthetics, brief updates, clip configurations, and lifestyle logs.</p>
+                </div>
+                <a href="https://www.instagram.com/zombie_hunter.exe/" target="_blank" class="btn-link">Follow @zombie_hunter.exe</a>
+            </div>
+        </div>
+
+        <!-- Dedicated Co-Pilot Highlight -->
+        <div class="sara-section" id="sara">
+            <div class="sara-content">
+                <span class="sara-badge">Featured Partner</span>
+                <h2>Meet Super <span>Sara</span> 🐾</h2>
+                <p>The true command officer running operations behind the scenes. Bringing pure energy, dedicated lifestyle content, and elite morale support across platforms to over 2,500 loyal followers!</p>
+                <div class="sara-buttons">
+                    <a href="https://www.youtube.com/@Sara12-doggy" target="_blank" class="btn btn-sara-yt">Sara's YouTube</a>
+                    <a href="https://www.instagram.com/supersara_12/" target="_blank" class="btn btn-sara-ig">Sara's Instagram</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer System Contact Info -->
+    <footer>
+        <div class="footer-contact">
+            <p>For operations, corporate sponsorships, or business inquiries, connect at:</p>
+            <a href="mailto:sandeepsatheesh14@gmail.com" class="footer-email">sandeepsatheesh14@gmail.com</a>
+        </div>
+        <div class="copyright">
+            &copy; 2026 Zombie Hunter Hub. All Rights Reserved. Handles: Sandeep S S. IG: _sandy.xx7_
+        </div>
+    </footer>
+
+</body>
+</html>
